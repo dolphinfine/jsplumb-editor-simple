@@ -1,24 +1,28 @@
-# workflow
+# jsplumb流程图编辑器简易版
 
-## Project setup
+![avatar](flow.gif)
+
+## 实现了以下功能
+
+- 从左侧拖拽流程到画布
+- 画布节点内容编辑
+- 画布节点保存、清空、还原
+- 流程图的放大、缩小、平移
+- 节点删除、连线删除
+- 节点复制粘贴
+
+### 安装依赖
 ```
-npm install
+npm i
 ```
 
-### Compiles and hot-reloads for development
+### 运行
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 参考文档
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [jsplumb社区版文档](http://jsplumb.github.io/jsplumb/home.html)
+- [jsplumb中文教程](https://github.com/wangduanduan/jsplumb-chinese-tutorial)
+- [vue-jsplumb-editor](https://github.com/fangyang921017/vue-jsplumb-editor)

@@ -7,7 +7,8 @@ import {
   Input,
   Drawer,
   Card,
-  MessageBox
+  MessageBox,
+  Message
 } from 'element-ui'
 
 Vue.use(Row)
@@ -19,3 +20,4 @@ Vue.use(Input)
 Vue.use(Drawer)
 Vue.use(Card)
 Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$message = Message;

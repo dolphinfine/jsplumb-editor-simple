@@ -24,20 +24,20 @@
         <!-- 即将被拖拽的节点 -->
         <ul class="sidebar drag-ul text-align-center font-12">
           <li class="drag-item" title="节点一">
-            <i class="iconfont icon-shujucaiji font-30 color-primary"></i>
-            <p>节点一</p>
+
+          节点一
           </li>
           <li class="drag-item" title="节点二">
-            <i class="iconfont icon-shujutuisong font-30 color-primary"></i>
-            <p>节点二</p>
+
+            节点二
           </li>
           <li class="drag-item" title="节点三">
-            <i class="iconfont icon-shujuchuli font-30 color-primary"></i>
-            <p>节点三</p>
+
+            节点三
           </li>
           <li class="drag-item" title="节点四">
-            <i class="iconfont icon-shujuzhiliang font-30 color-primary"></i>
-            <p>节点四</p>
+
+            节点四
           </li>
         </ul>
         <!-- 主要画布 -->
@@ -450,6 +450,11 @@ export default {
 
       console.log({ relation, nodes });
       this.flowInfo = { relation, nodes };
+      this.$message({
+        showClose: true,
+        message: '保存成功',
+        type: 'success'
+      });
     },
 
     /**
@@ -458,6 +463,7 @@ export default {
      * @return:
      */
     rightClick(node, $event) {
+      console.log({node,$event});
       let { offsetLeft, offsetTop } = $event.currentTarget;
 
       this.contextMenuPosition = [offsetLeft + 50, offsetTop];
@@ -741,14 +747,7 @@ export default {
 .node-name {
   max-width: 75px;
 }
-.fullscreen-canvas {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 200;
-}
+
 .select-node {
   background: #00c88d;
   color: #fff;
@@ -783,14 +782,13 @@ export default {
   margin-bottom: 10px;
   cursor: move;
   color: rgb(27, 28, 35);
-  border: 1px solid #aaa;
+  border: 1px solid #409eff;
+  border-radius: 5px;
+  text-align: center;
   list-style: none;
 }
 
-.drag-item.not-allowed {
-  cursor: not-allowed;
-  color: #8a8a8a;
-}
+
 
 .drag-box {
   height: 400px;
