@@ -1,6 +1,6 @@
-# jsplumb流程图编辑器简易版
+# jsplumb简易流程图编辑器
 
-![avatar](flow.gif)
+![avatar](http://note.youdao.com/noteshare?id=79a501230a550b98ab0f5b70347a8b30)
 
 ## 实现了以下功能
 
