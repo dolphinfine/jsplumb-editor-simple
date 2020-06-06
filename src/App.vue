@@ -137,7 +137,7 @@ export default {
         connection: null // 删除连线需要
       },
       isShowDrawer: false, // 右侧抽屉
-      contextMenuPosition: [9999, 9999],
+      contextMenuPosition: [-100, -100],
       zoom: 1,
       mainContainerWrap: null,
       pan: null,
@@ -567,7 +567,7 @@ export default {
     },
 
     hiddenRightMenu() {
-      this.contextMenuPosition = [9999, 9999];
+      this.contextMenuPosition = [-100, -100];
     },
     /**
      * @description: 屏蔽浏览器右键点击事件
