@@ -23,22 +23,10 @@
       <div class="drag-box border" id="drag">
         <!-- 即将被拖拽的节点 -->
         <ul class="sidebar drag-ul text-align-center font-12">
-          <li class="drag-item" title="节点一">
-
-          节点一
-          </li>
-          <li class="drag-item" title="节点二">
-
-            节点二
-          </li>
-          <li class="drag-item" title="节点三">
-
-            节点三
-          </li>
-          <li class="drag-item" title="节点四">
-
-            节点四
-          </li>
+          <li class="drag-item" title="节点一">节点一</li>
+          <li class="drag-item" title="节点二">节点二</li>
+          <li class="drag-item" title="节点三">节点三</li>
+          <li class="drag-item" title="节点四">节点四</li>
         </ul>
         <!-- 主要画布 -->
         <section class="drop" @contextmenu="canvasRightClick">
@@ -463,11 +451,11 @@ export default {
      * @return:
      */
     rightClick(node, $event) {
-      console.log({node,$event});
+      console.log({ node, $event });
       let { offsetLeft, offsetTop } = $event.currentTarget;
 
       this.contextMenuPosition = [offsetLeft + 50, offsetTop];
-      // this.contextMenuVisible = true;
+      console.log({ offsetLeft, offsetTop });
       this.currentNode = JSON.parse(JSON.stringify(node));
       this.deleteTarget = { ...{ type: 'node', nodeId: node.nodeId } };
     },
@@ -579,6 +567,7 @@ export default {
      * @return:
      */
     canvasRightClick(event) {
+      console.log('click');
       event.preventDefault();
       event.stopPropagation();
       return false;
@@ -787,8 +776,6 @@ export default {
   text-align: center;
   list-style: none;
 }
-
-
 
 .drag-box {
   height: 400px;
