@@ -31,27 +31,6 @@
         <!-- 主要画布 -->
         <section class="drop" @contextmenu="canvasRightClick">
           <div id="canvas" class="canvas">
-            <!-- 节点菜单 -->
-            <ul
-              class="right-menu bg-white border font-12"
-              :style="{left:`${contextMenuPosition[0]}px`,top:`${contextMenuPosition[1]}px`}"
-            >
-              <template v-if="deleteTarget.type==='node'">
-                <li @click="editNode">
-                  <i class="el-icon-edit margin-right-5 color-success"></i>
-                  编辑
-                </li>
-                <li @click="copyNode">
-                  <i class="el-icon-document-copy margin-right-5 color-warning"></i>
-                  复制
-                </li>
-              </template>
-              <li @click="delElement">
-                <i class="el-icon-delete margin-right-5 color-warning"></i>
-                删除
-              </li>
-            </ul>
-
             <div
               v-for="node in nodes"
               :key="node.nodeId"
@@ -73,7 +52,26 @@
         </section>
       </div>
     </el-card>
-
+    <!-- 节点菜单 -->
+    <ul
+      class="right-menu bg-white border font-12"
+      :style="{left:`${contextMenuPosition[0]}px`,top:`${contextMenuPosition[1]}px`}"
+    >
+      <template v-if="deleteTarget.type==='node'">
+        <li @click="editNode">
+          <i class="el-icon-edit margin-right-5 color-success"></i>
+          编辑
+        </li>
+        <li @click="copyNode">
+          <i class="el-icon-document-copy margin-right-5 color-warning"></i>
+          复制
+        </li>
+      </template>
+      <li @click="delElement">
+        <i class="el-icon-delete margin-right-5 color-warning"></i>
+        删除
+      </li>
+    </ul>
     <!-- 右侧节点配置 -->
     <el-drawer title="节点配置" :visible.sync="isShowDrawer" direction="rtl" ref="drawer">
       <div class="demo-drawer__content padding-20">
@@ -85,7 +83,7 @@
             <el-input maxlength="50" show-word-limit v-model="nodeForm.desc" type="textarea"></el-input>
           </el-form-item>
         </el-form>
-        <div class>
+        <div class="btn-box">
           <el-button @click="isShowDrawer = false">取 消</el-button>
           <el-button type="primary" @click="updateNodeInfo">确定</el-button>
         </div>
@@ -452,10 +450,20 @@ export default {
      */
     rightClick(node, $event) {
       console.log({ node, $event });
-      let { offsetLeft, offsetTop } = $event.currentTarget;
+      let { pageX, pageY } = $event;
 
-      this.contextMenuPosition = [offsetLeft + 50, offsetTop];
-      console.log({ offsetLeft, offsetTop });
+      let scale = this.getScale();
+
+      // Get mouse coordinates
+      const left = pageX  / scale;
+      const top = pageY  / scale;
+
+      this.contextMenuPosition = [left, top];
+      console.log({
+        left,
+        top,
+        contextMenuPosition: this.contextMenuPosition
+      });
       this.currentNode = JSON.parse(JSON.stringify(node));
       this.deleteTarget = { ...{ type: 'node', nodeId: node.nodeId } };
     },
@@ -754,14 +762,6 @@ export default {
   width: 100%;
 }
 
-.input-300.el-input,
-.el-select.input-300 {
-  width: 100%;
-  max-width: 300px;
-}
-.el-card__header {
-  padding: 10px;
-}
 .toolbar {
   border-bottom: none;
   height: 50px;
@@ -789,5 +789,8 @@ export default {
 .btns {
   margin-top: 20px;
   text-align: center;
+}
+.btn-box {
+  padding: 10px;
 }
 </style>
