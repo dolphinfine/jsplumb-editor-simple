@@ -10,6 +10,9 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
+    "js-cookie": "^2.2.1",
+    "jsplumb": "^2.13.2",
+    "panzoom": "^9.2.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {
