@@ -200,7 +200,6 @@ export default {
         stop: function(stop) {
           console.log({ stop });
           // 节点配置，弹窗
-          // self.isShowDrawer = true;
         }
       });
       // 落地
@@ -220,7 +219,7 @@ export default {
 
           let nodeId = jsPlumbUtil.uuid();
 
-          console.log({ jsPlumbUtil });
+          // console.log({ jsPlumbUtil });
           let containerRect = dropEl.getBoundingClientRect();
           let scale = self.getScale();
 
@@ -234,7 +233,6 @@ export default {
             position: { x: left - 60, y: top + 10 },
             properties: {}
           };
-          console.log({ node });
 
           self.nodes.push(node);
           self.$nextTick(() => {
@@ -391,11 +389,15 @@ export default {
       // 右键点击事件
       instance.bind('contextmenu', function(component, event) {
         let { pageX, pageY } = event;
+        //获取到的component是endpoint,则不显示菜单
+        if (component.type === 'Dot') {
+          return;
+        }
 
-        let containerRect = this.getContainer().getBoundingClientRect();
-        let scale = self.getScale();
-        const left = (pageX - containerRect.left) / scale;
-        const top = (pageY - containerRect.top) / scale;
+        console.log({ component, event });
+
+        const left = pageX;
+        const top = pageY;
 
         let position = [left, top];
 
@@ -452,18 +454,11 @@ export default {
       console.log({ node, $event });
       let { pageX, pageY } = $event;
 
-      let scale = this.getScale();
-
-      // Get mouse coordinates
-      const left = pageX  / scale;
-      const top = pageY  / scale;
+      const left = pageX;
+      const top = pageY;
 
       this.contextMenuPosition = [left, top];
-      console.log({
-        left,
-        top,
-        contextMenuPosition: this.contextMenuPosition
-      });
+
       this.currentNode = JSON.parse(JSON.stringify(node));
       this.deleteTarget = { ...{ type: 'node', nodeId: node.nodeId } };
     },
@@ -501,7 +496,8 @@ export default {
     delElement() {
       let { deleteTarget, dropInstance } = this;
       let { type, nodeId, connection } = deleteTarget;
-      console.log({ type, nodeId, connection });
+      console.log({ type, nodeId });
+      console.log(connection);
       let tip = type === 'node' ? '是否删除节点' : '是否删除连线';
       this.$confirm(tip, '提示', {
         confirmButtonText: '确定',
@@ -512,11 +508,13 @@ export default {
           if (type === 'node') {
             console.log('节点删除');
             this.delNode(dropInstance, nodeId);
-          } else {
+          } else if (type === 'connection') {
             console.log('连线删除');
-            console.log({ dropInstance, connection });
+            console.log({ dropInstance }, connection);
 
             this.delConnection(dropInstance, connection);
+          } else {
+            console.log('删除失败');
           }
         })
         .catch(err => {
@@ -710,6 +708,14 @@ export default {
   width: 100%;
   outline: none !important;
 }
+.node {
+  position: absolute;
+  width: 120px;
+  padding: 0 5px;
+  border-width: 2px;
+  border: 1px solid #409eff;
+  border-radius: 5px;
+}
 .right-menu {
   position: absolute;
   left: 9999px;
@@ -729,18 +735,7 @@ export default {
   font-size: 12px;
   cursor: pointer;
 }
-.node {
-  position: absolute;
-  width: 120px;
-  padding: 0 5px;
-  border-width: 2px;
-  border: 1px solid #409eff;
-  border-radius: 5px;
-}
-.node-status {
-  top: 6px;
-  right: 0;
-}
+
 .node-name {
   max-width: 75px;
 }
