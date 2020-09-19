@@ -451,7 +451,6 @@ export default {
      * @return:
      */
     rightClick(node, $event) {
-      console.log({ node, $event });
       let { pageX, pageY } = $event;
 
       const left = pageX;
